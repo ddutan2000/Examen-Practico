@@ -27,7 +27,6 @@ public class ControladorDocente {
     private ControladorAlumno controladorAlumno;
 
     /*
-    private int identificacion| 4 bytes 
     private String cedula| 10 bytes + 2 bytes
     private String nombre| 25 bytes +2 bytes
     private String apellido| 25 bytes + 2 bytes
@@ -36,13 +35,13 @@ public class ControladorDocente {
     private String contrasenia| 10 bytes + 2 bytes
     private String curso| 50 bytes + 2 bytes
     
-    total= 193;
+    total= 189;
      */
     public ControladorDocente(ControladorAlumno controladorA) {
         try {
             archivos = new RandomAccessFile("datos/Docente.dat", "rw");
             docente = new Docente();
-            tamañoDeArchivo = 193;
+            tamañoDeArchivo = 189;
             controladorAlumno=controladorA;
             eliminar25bytes = "                         ";
             eliminar10bytes = "          ";
@@ -58,7 +57,6 @@ public class ControladorDocente {
     public void create(Docente docente) {
         try {
             archivos.seek(archivos.length());
-            archivos.writeInt(docente.getIdentificacion());
             archivos.writeUTF(docente.getCedula());
             archivos.writeUTF(docente.getNombre());
             archivos.writeUTF(docente.getApellido());
@@ -79,10 +77,9 @@ public class ControladorDocente {
             while (salto < archivos.length()) {
                 archivos.seek(salto);
                 this.docente = new Docente();
-                this.docente.setIdentificacion(archivos.readInt());
+                this.docente.setCedula(archivos.readUTF());
                 if (docente.getCedula() == this.docente.getCedula()) {
-                    archivos.seek(salto + 4);
-                    archivos.writeUTF(docente.getCedula());
+                    archivos.seek(salto + 10);
                     archivos.writeUTF(docente.getNombre());
                     archivos.writeUTF(docente.getApellido());
                     archivos.writeUTF(docente.getTipo());
@@ -100,16 +97,15 @@ public class ControladorDocente {
         }
     }
     
-    public Docente read(int codigo){
+    public Docente read(String cedula){
         int salto=0;
         try {
             while(salto<archivos.length()){
                 archivos.seek(salto);
                 docente=new Docente();
-                docente.setIdentificacion(archivos.readInt());
-                if(docente.getIdentificacion()==codigo){
-                    archivos.seek(salto+4);
-                    docente.setCedula(archivos.readUTF().trim());
+                docente.setCedula(archivos.readUTF());
+                if(docente.getCedula().equals(cedula)){
+                    archivos.seek(salto+10);
                     docente.setNombre(archivos.readUTF().trim());
                     docente.setApellido(archivos.readUTF().trim());
                     docente.setTipo(archivos.readUTF().trim());
@@ -133,11 +129,10 @@ public class ControladorDocente {
             while(salto<archivos.length()){
                 archivos.seek(salto);
                 docente=new Docente();
-                docente.setIdentificacion(archivos.readInt());
                 docente.setCedula(archivos.readUTF());
                 docente.setNombre(archivos.readUTF());
                 if(docente.getNombre().equals(nombre)){
-                    archivos.seek(salto+58);
+                    archivos.seek(salto+39);
                     docente.setApellido(archivos.readUTF());
                     docente.setTipo(archivos.readUTF());
                     docente.setCurso(archivos.readUTF());
@@ -160,9 +155,9 @@ public class ControladorDocente {
             while (salto < archivos.length()) {
                 archivos.seek(salto);
                 this.docente = new Docente();
-                this.docente.setIdentificacion(archivos.readInt());
+                this.docente.setCedula(archivos.readUTF());
                 if (docente.getCedula() == this.docente.getCedula()) {
-                    archivos.seek(salto + 4);
+                    archivos.seek(salto);
                     archivos.writeUTF(eliminar10bytes);
                     archivos.writeUTF(eliminar25bytes);
                     archivos.writeUTF(eliminar25bytes);

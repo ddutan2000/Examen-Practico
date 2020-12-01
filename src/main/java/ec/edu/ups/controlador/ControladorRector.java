@@ -30,7 +30,6 @@ public class ControladorRector {
     private ControladorDocente controladorDocente;
 
     /*
-    private int identificacion| 4 bytes 
     private String cedula| 10 bytes + 2 bytes
     private String nombre| 25 bytes +2 bytes
     private String apellido| 25 bytes + 2 bytes
@@ -44,7 +43,7 @@ public class ControladorRector {
         try {
             archivos = new RandomAccessFile("datos/Rector.dat", "rw");
             rector = new Rector();
-            tamanioDeArchivo = 141;
+            tamanioDeArchivo = 137;
             codigo = 0;
             controladorDocente = controladorD;
             eliminar25bytes = "                         ";
@@ -60,7 +59,6 @@ public class ControladorRector {
     public void create(Rector rector) {
         try {
             archivos.seek(archivos.length());
-            archivos.writeInt(rector.getIdentificacion());
             archivos.writeUTF(rector.getCedula());
             archivos.writeUTF(rector.getNombre());
             archivos.writeUTF(rector.getApellido());
@@ -80,10 +78,9 @@ public class ControladorRector {
             while (salto < archivos.length()) {
                 archivos.seek(salto);
                 this.rector = new Rector();
-                this.rector.setIdentificacion(archivos.readInt());
+                this.rector.setCedula(archivos.readUTF());
                 if (rector.getCedula() == this.rector.getCedula()) {
-                    archivos.seek(salto + 4);
-                    archivos.writeUTF(rector.getCedula());
+                    archivos.seek(salto + 10);
                     archivos.writeUTF(rector.getNombre());
                     archivos.writeUTF(rector.getApellido());
                     archivos.writeUTF(rector.getTipo());
@@ -100,16 +97,15 @@ public class ControladorRector {
         }
     }
     
-    public Rector read(int codigo){
+    public Rector read(String cedula){
         int salto=0;
         try {
             while(salto<archivos.length()){
                 archivos.seek(salto);
                 rector=new Rector();
-                rector.setIdentificacion(archivos.readInt());
-                if(rector.getIdentificacion()==codigo){
-                    archivos.seek(salto+4);
-                    rector.setCedula(archivos.readUTF().trim());
+                rector.setCedula(archivos.readUTF());
+                if(rector.getCedula().equals(cedula)){
+                    archivos.seek(salto+10);
                     rector.setNombre(archivos.readUTF().trim());
                     rector.setApellido(archivos.readUTF().trim());
                     rector.setTipo(archivos.readUTF().trim());
@@ -132,9 +128,9 @@ public class ControladorRector {
             while (salto < archivos.length()) {
                 archivos.seek(salto);
                 this.rector = new Rector();
-                this.rector.setIdentificacion(archivos.readInt());
+                this.rector.setCedula(archivos.readUTF());
                 if (rector.getCedula() == this.rector.getCedula()) {
-                    archivos.seek(salto + 4);
+                    archivos.seek(salto);
                     archivos.writeUTF(eliminar10bytes);
                     archivos.writeUTF(eliminar25bytes);
                     archivos.writeUTF(eliminar25bytes);

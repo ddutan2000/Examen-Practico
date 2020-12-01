@@ -19,8 +19,8 @@ public class Docente extends Persona{
     private String contrasenia;
     private List<Alumno> alumnos;
 
-    public Docente(String curso, String correo, String contrasenia, int identificacion, String cedula, String nombre, String apellido, String tipo) {
-        super(identificacion, cedula, nombre, apellido, tipo);
+    public Docente(String curso, String correo, String contrasenia,String cedula, String nombre, String apellido, String tipo) {
+        super( cedula, nombre, apellido, tipo);
         this.curso = curso;
         this.correo = correo;
         this.contrasenia = contrasenia;
@@ -114,10 +114,5 @@ public class Docente extends Persona{
         }
         return true;
     }
-    
-    
-    
-    
-    
     
 }

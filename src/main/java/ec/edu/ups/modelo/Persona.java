@@ -5,12 +5,13 @@
  */
 package ec.edu.ups.modelo;
 
+import java.util.Objects;
+
 /**
  *
  * @author Dutan2000
  */
 public class Persona {
-    private int identificacion;
     private String cedula;
     private String nombre;
     private String apellido;
@@ -19,8 +20,7 @@ public class Persona {
     public Persona() {
     }
 
-    public Persona(int identificacion, String cedula, String nombre, String apellido, String tipo) {
-        this.identificacion = identificacion;
+    public Persona( String cedula, String nombre, String apellido, String tipo) {
         this.cedula = cedula;
         this.nombre = nombre;
         this.apellido = apellido;
@@ -36,13 +36,6 @@ public class Persona {
     }
     
 
-    public int getIdentificacion() {
-        return identificacion;
-    }
-
-    public void setIdentificacion(int identificacion) {
-        this.identificacion = identificacion;
-    }
 
     public String getNombre() {
         return nombre;
@@ -70,8 +63,8 @@ public class Persona {
 
     @Override
     public int hashCode() {
-        int hash = 5;
-        hash = 79 * hash + this.identificacion;
+        int hash = 3;
+        hash = 71 * hash + Objects.hashCode(this.cedula);
         return hash;
     }
 
@@ -87,10 +80,12 @@ public class Persona {
             return false;
         }
         final Persona other = (Persona) obj;
-        if (this.identificacion != other.identificacion) {
+        if (!Objects.equals(this.cedula, other.cedula)) {
             return false;
         }
         return true;
     }
+
+    
     
 }
