@@ -9,6 +9,8 @@ import ec.edu.ups.modelo.Alumno;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.RandomAccessFile;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -132,6 +134,33 @@ public class ControladorAlumno {
             System.out.println("Error de escritura y lectura [delete ControladorAlumno]");
             System.out.println(ex);
         }
+    }
+    
+        public List<Alumno >findAllDocentes(String docente) {
+        List<Alumno> alumnosLista = new ArrayList<>();
+        int salto = 0;
+        try {
+            while (salto < archivos.length()) {
+                archivos.seek(salto);
+                alumno = new Alumno();
+                alumno.setCedula(archivos.readUTF().trim());
+                alumno.setNombre(archivos.readUTF().trim());
+                alumno.setApellido(archivos.readUTF().trim());
+                alumno.setTipo(archivos.readUTF().trim());
+                alumno.setDocente(controladord.readNombre(archivos.readUTF()));
+                if (!alumno.getNombre().equals(eliminar25bytes)&&alumno.getDocente().getNombre().equals(docente)) {
+                    alumnosLista.add(alumno);
+                }
+
+                salto += tamanioDeArchivos;
+            }
+
+            return alumnosLista;
+        } catch (IOException ex) {
+            System.out.println("Error lectrura escritura (List : BodegaDAO)");
+            ex.printStackTrace();
+        }
+        return null;
     }
     
     

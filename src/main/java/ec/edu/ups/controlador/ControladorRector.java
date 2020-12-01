@@ -85,10 +85,10 @@ public class ControladorRector {
                     archivos.writeUTF(rector.getApellido());
                     archivos.writeUTF(rector.getTipo());
                     archivos.writeUTF(rector.getCorreo());
-                    archivos.writeUTF(rector.getContrasenia()); 
+                    archivos.writeUTF(rector.getContrasenia());
                     break;
                 }
-                salto+=tamanioDeArchivo;
+                salto += tamanioDeArchivo;
             }
 
         } catch (IOException ex) {
@@ -96,16 +96,16 @@ public class ControladorRector {
             System.out.println(ex);
         }
     }
-    
-    public Rector read(String cedula){
-        int salto=0;
+
+    public Rector read(String cedula) {
+        int salto = 0;
         try {
-            while(salto<archivos.length()){
+            while (salto < archivos.length()) {
                 archivos.seek(salto);
-                rector=new Rector();
+                rector = new Rector();
                 rector.setCedula(archivos.readUTF());
-                if(rector.getCedula().equals(cedula)){
-                    archivos.seek(salto+10);
+                if (rector.getCedula().equals(cedula)) {
+                    archivos.seek(salto + 10);
                     rector.setNombre(archivos.readUTF().trim());
                     rector.setApellido(archivos.readUTF().trim());
                     rector.setTipo(archivos.readUTF().trim());
@@ -113,15 +113,15 @@ public class ControladorRector {
                     rector.setContrasenia(archivos.readUTF().trim());
                     return rector;
                 }
-                salto+=tamanioDeArchivo;
+                salto += tamanioDeArchivo;
             }
         } catch (IOException ex) {
-          System.out.println("Error de escritura y lectura [read ControladorRector]");
-          System.out.println(ex);  
+            System.out.println("Error de escritura y lectura [read ControladorRector]");
+            System.out.println(ex);
         }
         return null;
     }
-    
+
     public void delete(Rector rector) {
         int salto = 0;
         try {
@@ -136,10 +136,10 @@ public class ControladorRector {
                     archivos.writeUTF(eliminar25bytes);
                     archivos.writeUTF(eliminar25bytes);
                     archivos.writeUTF(eliminar30bytes);
-                    archivos.writeUTF(eliminar10bytes); 
+                    archivos.writeUTF(eliminar10bytes);
                     break;
                 }
-                salto+=tamanioDeArchivo;
+                salto += tamanioDeArchivo;
             }
 
         } catch (IOException ex) {
@@ -147,11 +147,35 @@ public class ControladorRector {
             System.out.println(ex);
         }
     }
-    
-    public void createDocente(List<Docente> docente){
+
+    public void createDocente(List<Docente> docente) {
         for (int i = 0; i < docente.size(); i++) {
             controladorDocente.create(docente.get(i));
             break;
         }
+    }
+
+    public Rector login(String correo, String contresenia) {
+        int salto = 0;
+        try {
+            while (salto < archivos.length()) {
+                archivos.seek(salto);
+                rector = new Rector();
+                rector.setCedula(archivos.readUTF());
+                rector.setNombre(archivos.readUTF());
+                rector.setApellido(archivos.readUTF());
+                rector.setTipo(archivos.readUTF());
+                rector.setCorreo(archivos.readUTF());
+                rector.setContrasenia(archivos.readUTF());
+                if (rector.getCorreo().equals(correo) && rector.getContrasenia().equals(contresenia)) {
+                    return rector;
+                }
+                salto += tamanioDeArchivo;
+            }
+        } catch (IOException ex) {
+            System.out.println("Error de escritura y lectura [login ControladorRector]");
+            System.out.println(ex);
+        }
+        return null;
     }
 }

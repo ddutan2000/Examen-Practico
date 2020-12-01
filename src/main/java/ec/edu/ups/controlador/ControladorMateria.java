@@ -5,10 +5,13 @@
  */
 package ec.edu.ups.controlador;
 
+import ec.edu.ups.modelo.Alumno;
 import ec.edu.ups.modelo.Materias;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.RandomAccessFile;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -116,5 +119,30 @@ public class ControladorMateria {
             System.out.println("Error de escritura y lectura [delete ControladorMaterias]");
             System.out.println(ex);
         }
+    }
+    
+        public List<Materias> findAllMaterias(String docente) {
+        List<Materias> materiasLista = new ArrayList<>();
+        int salto = 0;
+        try {
+            while (salto < archivos.length()) {
+                archivos.seek(salto);
+                materia = new Materias();
+                materia.setLink(archivos.readUTF().trim());
+                materia.setNombreDeAplicacion(archivos.readUTF().trim());
+                materia.setNombreDeDocente(controladorD.readNombre(archivos.readUTF().trim()));
+                if (!materia.getLink().equals(eliminar100bytes)&&materia.getNombreDeDocente().getNombre().equals(docente)) {
+                    materiasLista.add(materia);
+                }
+
+                salto += tamanio;
+            }
+
+            return materiasLista;
+        } catch (IOException ex) {
+            System.out.println("Error lectrura escritura (List : BodegaDAO)");
+            ex.printStackTrace();
+        }
+        return null;
     }
 }

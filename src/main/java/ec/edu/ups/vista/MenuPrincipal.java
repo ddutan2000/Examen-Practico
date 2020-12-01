@@ -6,6 +6,8 @@
 package ec.edu.ups.vista;
 
 import ec.edu.ups.controlador.*;
+import javax.swing.JMenu;
+import javax.swing.JMenuItem;
 
 /**
  *
@@ -30,18 +32,21 @@ public class MenuPrincipal extends javax.swing.JFrame {
     
     public MenuPrincipal() {
         initComponents();
+        menuDocente.setVisible(false);
+        menuRector.setVisible(false);
+        tabCerrarSession.setVisible(false);
         
         controladorA=new ControladorAlumno();
         controladorD=new ControladorDocente(controladorA);
         controladorM=new ControladorMateria();
         controladorR=new ControladorRector(controladorD);
         
-        inicioSession=new InicioSession();
+        inicioSession=new InicioSession(this, controladorD, controladorR);
         listaDeDocente=new ListaDeDocente();
         menuDocenteV=new MenuDocente();
-        registrarDocente=new RegistrarDocente();
-        registrarRector=new RegistrarRector();
-        visualizarDocente=new VisuaizarADocente();
+        registrarDocente=new RegistrarDocente(controladorR);
+        registrarRector=new RegistrarRector(controladorR);
+        visualizarDocente=new VisuaizarADocente(controladorA,controladorM, controladorD);
         
         desktopPane.add(inicioSession);
         desktopPane.add(listaDeDocente);
@@ -49,6 +54,25 @@ public class MenuPrincipal extends javax.swing.JFrame {
         desktopPane.add(registrarDocente);
         desktopPane.add(registrarRector);
         desktopPane.add(visualizarDocente);
+    }
+    
+    public JMenu getMenuRector() {
+        return menuRector;
+    }
+    public JMenu getMenuDocente() {
+        return menuDocente;
+    }
+
+    public JMenuItem getCerrarSession() {
+        return tabCerrarSession;
+    }
+
+    public JMenuItem getIniciarsessionTab() {
+        return tabInicioSession;
+    }
+
+    public JMenuItem getRegistrarseTab() {
+        return tabRegistrarRector;
     }
 
     @SuppressWarnings("unchecked")
@@ -61,6 +85,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
         tabInicioSession = new javax.swing.JMenuItem();
         tabRegistrarRector = new javax.swing.JMenuItem();
         exitMenuItem = new javax.swing.JMenuItem();
+        tabCerrarSession = new javax.swing.JMenuItem();
         menuRector = new javax.swing.JMenu();
         tabRegistrarDocente = new javax.swing.JMenuItem();
         tabVerActividadD = new javax.swing.JMenuItem();
@@ -101,6 +126,15 @@ public class MenuPrincipal extends javax.swing.JFrame {
             }
         });
         menuInicio.add(exitMenuItem);
+
+        tabCerrarSession.setMnemonic('o');
+        tabCerrarSession.setText("CERRAR SESSION");
+        tabCerrarSession.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                tabCerrarSessionActionPerformed(evt);
+            }
+        });
+        menuInicio.add(tabCerrarSession);
 
         menuBar.add(menuInicio);
 
@@ -171,28 +205,41 @@ public class MenuPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_exitMenuItemActionPerformed
 
     private void tabRegistrarRectorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tabRegistrarRectorActionPerformed
-        // TODO add your handling code here:
+        registrarRector.setVisible(true);
+
     }//GEN-LAST:event_tabRegistrarRectorActionPerformed
 
     private void tabVerActividadDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tabVerActividadDActionPerformed
-        // TODO add your handling code here:
+        visualizarDocente.setVisible(true);
+
     }//GEN-LAST:event_tabVerActividadDActionPerformed
 
     private void tabMenuDocenteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tabMenuDocenteActionPerformed
-        // TODO add your handling code here:
+            menuDocenteV.setVisible(true);
+
     }//GEN-LAST:event_tabMenuDocenteActionPerformed
 
     private void tabListarDocenteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tabListarDocenteActionPerformed
-        // TODO add your handling code here:
+        listaDeDocente.setVisible(true);
+
     }//GEN-LAST:event_tabListarDocenteActionPerformed
 
     private void tabInicioSessionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tabInicioSessionActionPerformed
-        // TODO add your handling code here:
+        inicioSession.setVisible(true);
     }//GEN-LAST:event_tabInicioSessionActionPerformed
 
     private void tabRegistrarDocenteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tabRegistrarDocenteActionPerformed
-        // TODO add your handling code here:
+    registrarDocente.setVisible(true);
+
     }//GEN-LAST:event_tabRegistrarDocenteActionPerformed
+
+    private void tabCerrarSessionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tabCerrarSessionActionPerformed
+        menuRector.setVisible(false);
+        menuDocente.setVisible(false);
+        tabInicioSession.setVisible(true);
+        //tabRegistrarDocente.setVisible(true);
+       
+    }//GEN-LAST:event_tabCerrarSessionActionPerformed
 
     /**
      * @param args the command line arguments
@@ -237,6 +284,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenu menuDocente;
     private javax.swing.JMenu menuInicio;
     private javax.swing.JMenu menuRector;
+    private javax.swing.JMenuItem tabCerrarSession;
     private javax.swing.JMenuItem tabInicioSession;
     private javax.swing.JMenuItem tabListarDocente;
     private javax.swing.JMenuItem tabMenuDocente;

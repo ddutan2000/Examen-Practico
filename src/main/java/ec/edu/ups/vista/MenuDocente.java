@@ -81,6 +81,9 @@ public class MenuDocente extends javax.swing.JInternalFrame {
         ));
         jScrollPane3.setViewportView(jTable3);
 
+        setClosable(true);
+        setDefaultCloseOperation(javax.swing.WindowConstants.HIDE_ON_CLOSE);
+
         jLabel1.setText("MENU DE DOCENTE");
 
         lblNombre.setText("NOMBRE:");
