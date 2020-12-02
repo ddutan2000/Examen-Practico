@@ -12,8 +12,8 @@ package ec.edu.ups.modelo;
 public class Alumno extends Persona{
     private Docente docente;
 
-    public Alumno(Docente docente, int identificacion, String cedula, String nombre, String apellido, String tipo) {
-        super(identificacion, cedula, nombre, apellido, tipo);
+    public Alumno(Docente docente, String cedula, String nombre, String apellido, String tipo) {
+        super(cedula, nombre, apellido, tipo);
         this.docente = docente;
     }
 

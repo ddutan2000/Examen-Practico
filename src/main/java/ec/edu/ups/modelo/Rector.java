@@ -6,7 +6,6 @@
 package ec.edu.ups.modelo;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Objects;
 
@@ -16,37 +15,21 @@ import java.util.Objects;
  */
 public class Rector extends Persona {
     private List<Docente> docentes;
-    private String cursos;
     private String correo;
     private String contrasenia;
 
-    public Rector(String cursos, String correo, String contrasenia, int identificacion, String cedula, String nombre, String apellido, String tipo) {
-        super(identificacion, cedula, nombre, apellido, tipo);
+    public Rector(String correo, String contrasenia,String cedula, String nombre, String apellido, String tipo) {
+        super(cedula, nombre, apellido, tipo);
         docentes=new ArrayList<>();
-        this.cursos = cursos;
         this.correo = correo;
         this.contrasenia = contrasenia;
     }
     
 
     public Rector() {
+       docentes=new ArrayList<>(); 
     }
 
-    public String getcursos() {
-        return cursos;
-    }
-
-    public void setcursos(String cursos) {
-        this.cursos = cursos;
-    }  
-
-    public String getCursos() {
-        return cursos;
-    }
-
-    public void setCursos(String cursos) {
-        this.cursos = cursos;
-    }
 
     public String getCorreo() {
         return correo;
@@ -96,7 +79,7 @@ public class Rector extends Persona {
         }
     }
     
-    public List<Docente> findall(){
+    public List<Docente> findAll(){
         return docentes;
     }
 

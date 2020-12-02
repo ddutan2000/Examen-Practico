@@ -9,6 +9,8 @@ import ec.edu.ups.modelo.Alumno;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.RandomAccessFile;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -23,20 +25,19 @@ public class ControladorAlumno {
     private ControladorDocente controladord;
     
     /*
-    private int identificacion| 4 bytes 
     private String cedula| 10 bytes + 2 bytes
     private String nombre| 25 bytes +2 bytes
     private String apellido| 25 bytes + 2 bytes
     private String tipo| 25 bytes + 2 bytes
     private String Docente(nombre)| 25 bytes + 2 bytes
     
-    total:124
+    total:120
     */
 
     public ControladorAlumno() {
         try {
             archivos=new RandomAccessFile("datos/Alumnos.dat", "rw");
-            tamanioDeArchivos=124;
+            tamanioDeArchivos=120;
             alumno=new Alumno();
             eliminar25bytes = "                         ";
             eliminar10bytes = "          ";
@@ -50,7 +51,6 @@ public class ControladorAlumno {
      public void create(Alumno alumno) {
         try {
             archivos.seek(archivos.length());
-            archivos.writeInt(alumno.getIdentificacion());
             archivos.writeUTF(alumno.getCedula());
             archivos.writeUTF(alumno.getNombre());
             archivos.writeUTF(alumno.getApellido());
@@ -69,10 +69,9 @@ public class ControladorAlumno {
             while (salto < archivos.length()) {
                 archivos.seek(salto);
                 this.alumno = new Alumno();
-                this.alumno.setIdentificacion(archivos.readInt());
+                this.alumno.setCedula(archivos.readUTF());
                 if (this.alumno.getCedula().equals(alumno.getCedula())) {
-                    archivos.seek(salto + 4);
-                    archivos.writeUTF(alumno.getCedula());
+                    archivos.seek(salto + 10);
                     archivos.writeUTF(alumno.getNombre());
                     archivos.writeUTF(alumno.getApellido());
                     archivos.writeUTF(alumno.getTipo());
@@ -88,16 +87,15 @@ public class ControladorAlumno {
         }
     }
     
-    public Alumno readAlumno(int codigo){
+    public Alumno readAlumno(String cedula){
         int salto=0;
         try {
             while(salto<archivos.length()){
                 archivos.seek(salto);
                 alumno=new Alumno();
-                alumno.setIdentificacion(archivos.readInt());
-                if(alumno.getIdentificacion()==codigo){
-                    archivos.seek(salto+4);
-                    alumno.setCedula(archivos.readUTF().trim());
+                alumno.setCedula(archivos.readUTF());
+                if(alumno.getCedula().equals(cedula)){
+                    archivos.seek(salto+10);
                     alumno.setNombre(archivos.readUTF().trim());
                     alumno.setApellido(archivos.readUTF().trim());
                     alumno.setTipo(archivos.readUTF().trim());
@@ -119,9 +117,9 @@ public class ControladorAlumno {
             while (salto < archivos.length()) {
                 archivos.seek(salto);
                 this.alumno = new Alumno();
-                this.alumno.setIdentificacion(archivos.readInt());
+                this.alumno.setCedula(archivos.readUTF());
                 if (alumno.getCedula() == this.alumno.getCedula()) {
-                    archivos.seek(salto + 4);
+                    archivos.seek(salto);
                     archivos.writeUTF(eliminar10bytes);
                     archivos.writeUTF(eliminar25bytes);
                     archivos.writeUTF(eliminar25bytes);
@@ -136,6 +134,33 @@ public class ControladorAlumno {
             System.out.println("Error de escritura y lectura [delete ControladorAlumno]");
             System.out.println(ex);
         }
+    }
+    
+        public List<Alumno >findAllDocentes(String docente) {
+        List<Alumno> alumnosLista = new ArrayList<>();
+        int salto = 0;
+        try {
+            while (salto < archivos.length()) {
+                archivos.seek(salto);
+                alumno = new Alumno();
+                alumno.setCedula(archivos.readUTF().trim());
+                alumno.setNombre(archivos.readUTF().trim());
+                alumno.setApellido(archivos.readUTF().trim());
+                alumno.setTipo(archivos.readUTF().trim());
+                alumno.setDocente(controladord.readNombre(archivos.readUTF()));
+                if (!alumno.getNombre().equals(eliminar25bytes)&&alumno.getDocente().getNombre().equals(docente)) {
+                    alumnosLista.add(alumno);
+                }
+
+                salto += tamanioDeArchivos;
+            }
+
+            return alumnosLista;
+        } catch (IOException ex) {
+            System.out.println("Error lectrura escritura (List : BodegaDAO)");
+            ex.printStackTrace();
+        }
+        return null;
     }
     
     
