@@ -28,10 +28,9 @@ public class ControladorMateria {
     
     /*
     private String link| 100 bytes + 2 bytes 
-    private String nombreDeAplicacion| 25 bytes + 2 bytes
     private Docente nombreDeDocente| 25 bytes + 2 bytes 
     
-    total=131
+    total=129
 
     */
 
@@ -41,7 +40,7 @@ public class ControladorMateria {
             materia=new Materias();
             eliminar25bytes = "                         ";
             eliminar100bytes ="                                                                                                    ";
-            tamanio=131;
+            tamanio=129;
         } catch (FileNotFoundException ex) {
             
         }  

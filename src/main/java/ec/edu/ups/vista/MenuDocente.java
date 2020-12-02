@@ -424,7 +424,6 @@ public class MenuDocente extends javax.swing.JInternalFrame {
                 System.out.println(materias.getNombreDeAplicacion());
             }*/
             docente.createLink(resulatado);
-            
             actualizarVistaLinks(docente.findAllMaterias());
         }
 
@@ -449,6 +448,10 @@ public class MenuDocente extends javax.swing.JInternalFrame {
         if (JOptionPane.OK_OPTION == confirmar) {
             docente = controladorD.verDocente();
             String link = txtLink.getText();
+            for (int i = link.length(); i < 100; i++) {
+                link+=" ";
+            }
+            link=link.substring(0, 100);
             //String nombre = txtNombreLink.getText();
             materia = new Materias(link, docente);
             controladorD.creatLink(materia);

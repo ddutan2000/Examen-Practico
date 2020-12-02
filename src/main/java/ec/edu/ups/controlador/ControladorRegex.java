@@ -54,7 +54,6 @@ public class ControladorRegex {
         corpus=patron.matcher(pagina);
         while(corpus.find()){
             String link=corpus.group(0).replaceFirst("<a href=\"", "https://play.google.com");
-            System.out.println(link);
             lista.add(materia=new Materias(link,docente));
         }
         return lista;
