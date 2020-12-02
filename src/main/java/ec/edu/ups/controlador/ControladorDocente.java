@@ -26,6 +26,8 @@ public class ControladorDocente {
     private String eliminar50bytes;
     private Docente docente;
     private ControladorAlumno controladorAlumno;
+    private ControladorMateria controladorM;
+    private Docente docente1=new Docente();
 
     /*
     private String cedula| 10 bytes + 2 bytes
@@ -182,6 +184,14 @@ public class ControladorDocente {
             controladorAlumno.create(alumnos.get(i));
         }
     }
+    
+    public void creatLink(Materias materias){
+            controladorM.create(materias);
+    }
+    
+    public Docente verDocente(){
+        return docente1;
+    }
 
     public Docente login(String correo, String contresenia) {
         int salto = 0;
@@ -196,7 +206,9 @@ public class ControladorDocente {
                 docente.setCorreo(archivos.readUTF());
                 docente.setContrasenia(archivos.readUTF());
                 if (docente.getCorreo().equals(correo) && docente.getContrasenia().equals(contresenia)) {
+                    docente1=docente;
                     return docente;
+                    
                 }
                 salto += tamañoDeArchivo;
             }

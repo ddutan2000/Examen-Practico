@@ -47,6 +47,19 @@ public class ControladorMateria {
         }  
     }
     
+            public void create(Materias materia) {
+        try {
+            archivos.seek(archivos.length());
+            archivos.writeUTF(materia.getLink());
+            archivos.writeUTF(materia.getNombreDeAplicacion());
+            archivos.writeUTF(materia.getNombreDeDocente().getNombre());
+
+        } catch (IOException ex) {
+            System.out.println("Error de escritura y lectura [create ControladorMateria]");
+            System.out.println(ex);
+        }
+    }
+    
         public void update(Materias materia) {
         int salto = 0;
         try {

@@ -43,7 +43,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
         
         inicioSession=new InicioSession(this, controladorD, controladorR);
         listaDeDocente=new ListaDeDocente();
-        menuDocenteV=new MenuDocente();
+        menuDocenteV=new MenuDocente(controladorD);
         registrarDocente=new RegistrarDocente(controladorR);
         registrarRector=new RegistrarRector(controladorR);
         visualizarDocente=new VisuaizarADocente(controladorA,controladorM, controladorD);

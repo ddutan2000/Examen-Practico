@@ -13,18 +13,21 @@ import java.util.Objects;
  *
  * @author Dutan2000
  */
-public class Docente extends Persona{
+public class Docente extends Persona {
+
     private String curso;
     private String correo;
     private String contrasenia;
     private List<Alumno> alumnos;
+    private List<Materias> materias;
 
-    public Docente(String curso, String correo, String contrasenia,String cedula, String nombre, String apellido, String tipo) {
-        super( cedula, nombre, apellido, tipo);
+    public Docente(String curso, String correo, String contrasenia, String cedula, String nombre, String apellido, String tipo) {
+        super(cedula, nombre, apellido, tipo);
         this.curso = curso;
         this.correo = correo;
         this.contrasenia = contrasenia;
-        alumnos=new ArrayList<>();
+        alumnos = new ArrayList<>();
+        materias=new ArrayList<>();
     }
 
     public Docente() {
@@ -53,41 +56,31 @@ public class Docente extends Persona{
     public void setContrasenia(String contrasenia) {
         this.contrasenia = contrasenia;
     }
-    
-        public void createAlumno(Alumno alumno){
+
+    public void createAlumno(Alumno alumno) {
         alumnos.add(alumno);
     }
-    
-    public Alumno readAlumno(int cedula){
+
+    public Alumno readAlumno(String cedula) {
         return alumnos.stream().filter(objeto -> objeto.getCedula().equals(cedula)).findFirst().get();
     }
     
-    public void updateAlumno(Alumno alumno){
-        Alumno d =readAlumno(Integer.parseInt(alumno.getCedula()));
-        if(d!=null){
-            for (int i = 0; i < alumnos.size(); i++) {
-                Alumno f=alumnos.get(i);
-                if(f.getCedula()==d.getCedula()){
-                    alumnos.add(i, alumno);
-                }
-            }
-        }
-    }
-    
-    public void deleteAlumno(Alumno alumno){
-        Alumno d =readAlumno(Integer.parseInt(alumno.getCedula()));
-        if(d!=null){
-            for (int i = 0; i < alumnos.size(); i++) {
-                Alumno f=alumnos.get(i);
-                if(f.getCedula()==d.getCedula()){
-                    alumnos.remove(i);
-                }
-            }
-        }
-    }
-    
-    public List<Alumno> findAll(){
+    public List<Alumno> findAllAlumnos(){
         return alumnos;
+    }
+
+    public void createLink(List<Materias> materias) {
+        for (int i = 0; i < materias.size(); i++) {
+            this.materias.add(materias.get(i));
+        }
+    }
+
+    public Materias readMateria(String docente) {
+        return materias.stream().filter(objeto -> objeto.getNombreDeDocente().getNombre().equals(docente)).findFirst().get();
+    }
+
+    public List<Materias> findAllMaterias() {
+        return materias;
     }
 
     @Override
@@ -114,5 +107,5 @@ public class Docente extends Persona{
         }
         return true;
     }
-    
+
 }

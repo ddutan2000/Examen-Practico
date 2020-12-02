@@ -19,6 +19,19 @@ public class Materias {
         this.nombreDeAplicacion = nombreDeAplicacion;
     }
 
+    public Materias(String link, Docente nombreDeDocente) {
+        this.link = link;
+        this.nombreDeDocente = nombreDeDocente;
+    }
+
+    public Materias(String link, String nombreDeAplicacion, Docente nombreDeDocente) {
+        this.link = link;
+        this.nombreDeAplicacion = nombreDeAplicacion;
+        this.nombreDeDocente = nombreDeDocente;
+    }
+    
+    
+
     public Materias() {
     }
     

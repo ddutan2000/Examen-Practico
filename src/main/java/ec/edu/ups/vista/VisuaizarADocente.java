@@ -8,6 +8,8 @@ package ec.edu.ups.vista;
 import ec.edu.ups.controlador.*;
 import ec.edu.ups.modelo.*;
 import java.util.List;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -38,7 +40,7 @@ public class VisuaizarADocente extends javax.swing.JInternalFrame {
             List<Docente> docentes = controladorD.findAllDocentes();
 
             for (Docente docente : docentes) {
-                cmbxDocentes.addItem(docente.getNombre());
+                cmbxDocentes.addItem(docente.getNombre().trim());
             }
         }
 
@@ -47,11 +49,28 @@ public class VisuaizarADocente extends javax.swing.JInternalFrame {
     }
         
     public void ActualizarVistaLinks(List<Materias>materias){
-        
+        DefaultTableModel modelo = (DefaultTableModel) tabkaDatosLink.getModel();
+        modelo.setRowCount(0);
+        for (Materias docente : materias) {
+            Object[] fila = new Object[2];
+            fila[0] = docente.getLink();
+            fila[1] = docente.getNombreDeAplicacion();
+            modelo.addRow(fila);
+        }
+        tabkaDatosLink.setModel(modelo);
     } 
     
-    public void ActualizarVistaAlumnos(List<Alumno>Alumnos){
-        
+    public void ActualizarVistaAlumnos(List<Alumno>alumnos){
+        DefaultTableModel modelo = (DefaultTableModel) tablaDatosAlumnos.getModel();
+        modelo.setRowCount(0);
+        for (Alumno alumno : alumnos) {
+            Object[] fila = new Object[3];
+            fila[0] = alumno.getCedula();
+            fila[1] = alumno.getNombre();
+            fila[2]= alumno.getApellido();
+            modelo.addRow(fila);
+        }
+        tablaDatosAlumnos.setModel(modelo);  
     } 
     
 
@@ -195,7 +214,12 @@ public class VisuaizarADocente extends javax.swing.JInternalFrame {
     private void btnDetallesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDetallesActionPerformed
 
         if(cmbxDocentes.getSelectedIndex()!=0){
+            String docente=String.valueOf(cmbxDocentes.getSelectedItem());
             
+            ActualizarVistaAlumnos(controladorA.findAllDocentes(docente));
+            ActualizarVistaLinks(controladorM.findAllMaterias(docente));        
+        }else{
+            JOptionPane.showMessageDialog(null, "DEBE SELECIONAR UN DOCENTE");
         }
     }//GEN-LAST:event_btnDetallesActionPerformed
 
