@@ -28,7 +28,7 @@ public class MenuDocente extends javax.swing.JInternalFrame {
     private Docente docente;
     private Materias materia;
     private Alumno alumno;
-    private ControladorRegex controladorRegex;
+    private ControladorRegex controladorRegex = new ControladorRegex();
 
     public MenuDocente(ControladorDocente controladorDocente) {
         initComponents();
@@ -60,10 +60,9 @@ public class MenuDocente extends javax.swing.JInternalFrame {
     public void limpiarBusqueda() {
         txtBusqueda.setText("");
         txtLink.setText("");
-        txtNombreLink.setText("");
     }
 
-    public void actualizarVistaLinks(List<Materias> materias) {
+    public void actualizarVistaLinks(Set<Materias> materias) {
 
         DefaultTableModel modelo = (DefaultTableModel) tablaLinks.getModel();
         modelo.setRowCount(0);
@@ -104,8 +103,6 @@ public class MenuDocente extends javax.swing.JInternalFrame {
         btnBuscar = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
         txtLink = new javax.swing.JTextField();
-        jLabel5 = new javax.swing.JLabel();
-        txtNombreLink = new javax.swing.JTextField();
         btnCrearTema = new javax.swing.JButton();
         btnConfirmar = new javax.swing.JButton();
 
@@ -192,14 +189,14 @@ public class MenuDocente extends javax.swing.JInternalFrame {
 
             },
             new String [] {
-                "LINK", "NOMBRE"
+                "LINK"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class
+                java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false
+                false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -227,10 +224,6 @@ public class MenuDocente extends javax.swing.JInternalFrame {
         jLabel4.setText("LINK:");
 
         txtLink.setEditable(false);
-
-        jLabel5.setText("NOMBRE:");
-
-        txtNombreLink.setEditable(false);
 
         btnCrearTema.setText("AÑADIR TEMA");
         btnCrearTema.addActionListener(new java.awt.event.ActionListener() {
@@ -292,11 +285,7 @@ public class MenuDocente extends javax.swing.JInternalFrame {
                                     .addGroup(layout.createSequentialGroup()
                                         .addComponent(jLabel4)
                                         .addGap(18, 18, 18)
-                                        .addComponent(txtLink, javax.swing.GroupLayout.PREFERRED_SIZE, 221, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(28, 28, 28)
-                                        .addComponent(jLabel5)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(txtNombreLink, javax.swing.GroupLayout.PREFERRED_SIZE, 216, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                        .addComponent(txtLink, javax.swing.GroupLayout.PREFERRED_SIZE, 481, javax.swing.GroupLayout.PREFERRED_SIZE)))
                                 .addGap(0, 0, Short.MAX_VALUE)))))
                 .addGap(24, 24, 24))
             .addGroup(layout.createSequentialGroup()
@@ -345,9 +334,7 @@ public class MenuDocente extends javax.swing.JInternalFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
-                    .addComponent(txtLink, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel5)
-                    .addComponent(txtNombreLink, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtLink, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnCrearTema))
         );
@@ -357,7 +344,7 @@ public class MenuDocente extends javax.swing.JInternalFrame {
 
     private void btnCrearAlumnoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCrearAlumnoActionPerformed
         if (!txtCedula.getText().isEmpty() && !txtNombre.getText().isEmpty() && !txtApellido.getText().isEmpty()) {
-             String cedula = txtCedula.getText();
+            String cedula = txtCedula.getText();
 
             String nombre = txtNombre.getText();
             for (int i = nombre.length(); i < 25; i++) {
@@ -380,15 +367,18 @@ public class MenuDocente extends javax.swing.JInternalFrame {
             docente = controladorD.verDocente();
             alumno = new Alumno(docente, cedula, nombre, apellido, tipo);
             docente.createAlumno(alumno);
-            actualizarVista(docente.findAllAlumnos()); 
-            
+            actualizarVista(docente.findAllAlumnos());
+            limpiar();
+            JOptionPane.showMessageDialog(null, "ESTUDIANTE AGREGADO A LA LISTA");
+        } else {
+            JOptionPane.showMessageDialog(null, "EXISTEN CAMPOS VACIOS");
         }
 
     }//GEN-LAST:event_btnCrearAlumnoActionPerformed
 
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
         if (!txtBusqueda.getText().isEmpty()) {
-            controladorRegex.ingreseRegex("<a\\shref=\"(((Ht|ht|f)tp(s)?)?\\:\\/\\/)?(www)?(.[^\\\"\\s])+\"");
+            controladorRegex.ingreseRegex("<a href=\\\"\\/store\\/apps\\/details\\?id=((\\w)+\\.?)+");
             StringBuilder stringBuilder = new StringBuilder();
             String textBusqueda = txtBusqueda.getText();
             try {
@@ -408,8 +398,33 @@ public class MenuDocente extends javax.swing.JInternalFrame {
                 System.out.println(ex);
             }
             docente = controladorD.verDocente();
-            List<Materias> resulatado = controladorRegex.obtenerURLGoogle(stringBuilder.toString(), docente);
+            Set<Materias> resulatado = controladorRegex.obtenerURLGoogle(stringBuilder.toString(), docente);
+            /*
+            controladorRegex.ingreseRegex("\"title\\\">(\\\\w+\\\\s?:?\\\\s?)+\"");
+            for (Materias materias : resulatado) {
+                //String textBusquedaTitulo = materias.getLink();
+                try {
+    
+                    URL urlObject = new URL(materias.getLink());
+                    URLConnection urlConnection = urlObject.openConnection();
+                    urlConnection.setRequestProperty("User-Agent", "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.11 (KHTML, like Gecko) Chrome/23.0.1271.95 Safari/537.11");
+                    BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(urlConnection.getInputStream(), "UTF-8"));
+                    String inputLine;
+                    while ((inputLine = bufferedReader.readLine()) != null) {
+                        stringBuilder.append(inputLine);
+                    }
+                } catch (FileNotFoundException ex) {
+                    System.out.println("Error de lectura");
+                    System.out.println(ex);
+                } catch (IOException ex) {
+                    System.out.println("Error de lectura");
+                    System.out.println(ex);
+                }
+                materias.setNombreDeAplicacion(controladorRegex.obtenerTitulo(stringBuilder.toString()));
+                System.out.println(materias.getNombreDeAplicacion());
+            }*/
             docente.createLink(resulatado);
+            
             actualizarVistaLinks(docente.findAllMaterias());
         }
 
@@ -420,10 +435,10 @@ public class MenuDocente extends javax.swing.JInternalFrame {
 
         int posicion = tablaLinks.getSelectedRow();
         String link = String.valueOf(tablaLinks.getValueAt(posicion, 0));
-        String nombre = String.valueOf(tablaLinks.getValueAt(posicion, 1));
+        //String nombre = String.valueOf(tablaLinks.getValueAt(posicion, 1));
 
         txtLink.setText(link);
-        txtNombreLink.setText(nombre);
+        //txtNombreLink.setText(nombre);
 
     }//GEN-LAST:event_tablaLinksMouseClicked
 
@@ -434,8 +449,8 @@ public class MenuDocente extends javax.swing.JInternalFrame {
         if (JOptionPane.OK_OPTION == confirmar) {
             docente = controladorD.verDocente();
             String link = txtLink.getText();
-            String nombre = txtNombreLink.getText();
-            materia = new Materias(link, nombre, docente);
+            //String nombre = txtNombreLink.getText();
+            materia = new Materias(link, docente);
             controladorD.creatLink(materia);
             JOptionPane.showMessageDialog(null, "MATERIA CREADA EXITOSAMENTE");
             limpiarBusqueda();
@@ -446,12 +461,12 @@ public class MenuDocente extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btnCrearTemaActionPerformed
 
     private void btnConfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConfirmarActionPerformed
-            Object[] opcionesJPanel = {"SI", "NO"};
-            int confirmar = JOptionPane.showOptionDialog(null, "ESTA SEGURO QUE DESEA GUARDAR ESTOS DATOS ", "REGISTRAR DOCENTES", JOptionPane.YES_NO_OPTION,
-                    JOptionPane.INFORMATION_MESSAGE, null, opcionesJPanel, null);
-            if(JOptionPane.OK_OPTION==confirmar){
-                controladorD.creatAlumno(docente.findAllAlumnos());
-            }
+        Object[] opcionesJPanel = {"SI", "NO"};
+        int confirmar = JOptionPane.showOptionDialog(null, "ESTA SEGURO QUE DESEA GUARDAR ESTOS DATOS ", "REGISTRAR DOCENTES", JOptionPane.YES_NO_OPTION,
+                JOptionPane.INFORMATION_MESSAGE, null, opcionesJPanel, null);
+        if (JOptionPane.OK_OPTION == confirmar) {
+            controladorD.creatAlumno(docente.findAllAlumnos());
+        }
     }//GEN-LAST:event_btnConfirmarActionPerformed
 
 
@@ -465,7 +480,6 @@ public class MenuDocente extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
@@ -483,6 +497,5 @@ public class MenuDocente extends javax.swing.JInternalFrame {
     private javax.swing.JTextField txtCedula;
     private javax.swing.JTextField txtLink;
     private javax.swing.JTextField txtNombre;
-    private javax.swing.JTextField txtNombreLink;
     // End of variables declaration//GEN-END:variables
 }

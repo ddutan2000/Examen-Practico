@@ -118,11 +118,7 @@
                                   <Group type="102" alignment="0" attributes="0">
                                       <Component id="jLabel4" min="-2" max="-2" attributes="0"/>
                                       <EmptySpace type="separate" max="-2" attributes="0"/>
-                                      <Component id="txtLink" min="-2" pref="221" max="-2" attributes="0"/>
-                                      <EmptySpace min="-2" pref="28" max="-2" attributes="0"/>
-                                      <Component id="jLabel5" min="-2" max="-2" attributes="0"/>
-                                      <EmptySpace max="-2" attributes="0"/>
-                                      <Component id="txtNombreLink" min="-2" pref="216" max="-2" attributes="0"/>
+                                      <Component id="txtLink" min="-2" pref="481" max="-2" attributes="0"/>
                                   </Group>
                               </Group>
                               <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
@@ -186,8 +182,6 @@
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="jLabel4" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="txtLink" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="jLabel5" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="txtNombreLink" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
               <Component id="btnCrearTema" min="-2" max="-2" attributes="0"/>
@@ -292,9 +286,8 @@
         <Component class="javax.swing.JTable" name="tablaLinks">
           <Properties>
             <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-              <Table columnCount="2" rowCount="0">
+              <Table columnCount="1" rowCount="0">
                 <Column editable="false" title="LINK" type="java.lang.String"/>
-                <Column editable="false" title="NOMBRE" type="java.lang.String"/>
               </Table>
             </Property>
           </Properties>
@@ -318,16 +311,6 @@
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="txtLink">
-      <Properties>
-        <Property name="editable" type="boolean" value="false"/>
-      </Properties>
-    </Component>
-    <Component class="javax.swing.JLabel" name="jLabel5">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="NOMBRE:"/>
-      </Properties>
-    </Component>
-    <Component class="javax.swing.JTextField" name="txtNombreLink">
       <Properties>
         <Property name="editable" type="boolean" value="false"/>
       </Properties>

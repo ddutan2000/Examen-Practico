@@ -35,6 +35,9 @@ public class ListaDeDocente extends javax.swing.JInternalFrame {
         jScrollPane2 = new javax.swing.JScrollPane();
         jTable2 = new javax.swing.JTable();
 
+        setClosable(true);
+        setDefaultCloseOperation(javax.swing.WindowConstants.HIDE_ON_CLOSE);
+
         jLabel1.setText("LISTA DE DOCENTE");
 
         jLabel2.setText("ACTIVIDADES:");

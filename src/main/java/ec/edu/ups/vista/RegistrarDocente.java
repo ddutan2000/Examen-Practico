@@ -246,6 +246,10 @@ public class RegistrarDocente extends javax.swing.JInternalFrame {
                 && cmbxTipo.getSelectedIndex() != 0) {
 
             String cedula = txtCedula.getText();
+            for (int i = cedula.length(); i < 10; i++) {
+                cedula += " ";
+            }
+            cedula = cedula.substring(0, 10);
 
             String nombre = txtNombre.getText();
             for (int i = nombre.length(); i < 25; i++) {

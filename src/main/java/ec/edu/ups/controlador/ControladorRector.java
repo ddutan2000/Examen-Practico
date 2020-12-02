@@ -151,7 +151,6 @@ public class ControladorRector {
     public void createDocente(List<Docente> docente) {
         for (int i = 0; i < docente.size(); i++) {
             controladorDocente.create(docente.get(i));
-            break;
         }
     }
 

@@ -6,8 +6,10 @@
 package ec.edu.ups.modelo;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Objects;
+import java.util.Set;
 
 /**
  *
@@ -19,7 +21,7 @@ public class Docente extends Persona {
     private String correo;
     private String contrasenia;
     private List<Alumno> alumnos;
-    private List<Materias> materias;
+    private Set<Materias> materias;
 
     public Docente(String curso, String correo, String contrasenia, String cedula, String nombre, String apellido, String tipo) {
         super(cedula, nombre, apellido, tipo);
@@ -27,12 +29,12 @@ public class Docente extends Persona {
         this.correo = correo;
         this.contrasenia = contrasenia;
         alumnos = new ArrayList<>();
-        materias=new ArrayList<>();
+        materias=new HashSet<>();
     }
 
     public Docente() {
         alumnos = new ArrayList<>();
-        materias=new ArrayList<>();
+        materias=new HashSet<>();
     }
 
     public String getCurso() {
@@ -71,9 +73,9 @@ public class Docente extends Persona {
         return alumnos;
     }
 
-    public void createLink(List<Materias> materias) {
-        for (int i = 0; i < materias.size(); i++) {
-            this.materias.add(materias.get(i));
+    public void createLink(Set<Materias> materias) {
+        for (Materias materia : materias) {
+            this.materias.add(materia);
         }
     }
 
@@ -81,7 +83,7 @@ public class Docente extends Persona {
         return materias.stream().filter(objeto -> objeto.getNombreDeDocente().getNombre().equals(docente)).findFirst().get();
     }
 
-    public List<Materias> findAllMaterias() {
+    public Set<Materias> findAllMaterias() {
         return materias;
     }
 

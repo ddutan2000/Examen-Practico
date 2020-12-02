@@ -52,9 +52,9 @@ public class VisuaizarADocente extends javax.swing.JInternalFrame {
         DefaultTableModel modelo = (DefaultTableModel) tabkaDatosLink.getModel();
         modelo.setRowCount(0);
         for (Materias docente : materias) {
-            Object[] fila = new Object[2];
+            Object[] fila = new Object[1];
             fila[0] = docente.getLink();
-            fila[1] = docente.getNombreDeAplicacion();
+            //fila[1] = docente.getNombreDeAplicacion();
             modelo.addRow(fila);
         }
         tabkaDatosLink.setModel(modelo);

@@ -40,12 +40,13 @@ public class ControladorDocente {
     
     total= 189;
      */
-    public ControladorDocente(ControladorAlumno controladorA) {
+    public ControladorDocente(ControladorAlumno controladorA,ControladorMateria controladorMateria) {
         try {
             archivos = new RandomAccessFile("datos/Docente.dat", "rw");
             docente = new Docente();
             tamañoDeArchivo = 189;
             controladorAlumno = controladorA;
+            controladorM=controladorMateria;
             eliminar25bytes = "                         ";
             eliminar10bytes = "          ";
             eliminar30bytes = "                              ";
@@ -203,6 +204,7 @@ public class ControladorDocente {
                 docente.setNombre(archivos.readUTF());
                 docente.setApellido(archivos.readUTF());
                 docente.setTipo(archivos.readUTF());
+                docente.setCurso(archivos.readUTF());
                 docente.setCorreo(archivos.readUTF());
                 docente.setContrasenia(archivos.readUTF());
                 if (docente.getCorreo().equals(correo) && docente.getContrasenia().equals(contresenia)) {

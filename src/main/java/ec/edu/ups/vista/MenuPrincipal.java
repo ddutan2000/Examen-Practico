@@ -37,7 +37,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
         tabCerrarSession.setVisible(false);
         
         controladorA=new ControladorAlumno();
-        controladorD=new ControladorDocente(controladorA);
+        controladorD=new ControladorDocente(controladorA,controladorM);
         controladorM=new ControladorMateria();
         controladorR=new ControladorRector(controladorD);
         

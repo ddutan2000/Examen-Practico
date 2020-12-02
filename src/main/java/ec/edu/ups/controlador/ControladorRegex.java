@@ -40,11 +40,21 @@ public class ControladorRegex {
         return resultado;
     }
     
-    public List<Materias> obtenerURLGoogle(String pagina,Docente docente ){
-        List<Materias> lista=new ArrayList<>();
+    public String obtenerTitulo(String texto){
+       corpus=patron.matcher(texto);
+        while(corpus.find()){
+            String titulo = (corpus.group(0));
+            return titulo;
+        }
+        return "FAIL"; 
+    }
+    
+    public Set<Materias> obtenerURLGoogle(String pagina,Docente docente ){
+        Set<Materias> lista=new HashSet<>();
         corpus=patron.matcher(pagina);
         while(corpus.find()){
-            String link=corpus.group(0).replaceFirst("<a\\shref=\"", "https://play.google.com/store/search?q=");
+            String link=corpus.group(0).replaceFirst("<a href=\"", "https://play.google.com");
+            System.out.println(link);
             lista.add(materia=new Materias(link,docente));
         }
         return lista;
