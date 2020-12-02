@@ -118,6 +118,7 @@ public class InicioSession extends javax.swing.JInternalFrame {
 
     private void btnIniciarSessionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIniciarSessionActionPerformed
         if(!txtCorreo.getText().isEmpty()&&!txtContrasenia.getText().isEmpty()){
+            Singleton validacion=Singleton.getPatronSingleton();
             String correo=txtCorreo.getText();
             for (int i = correo.length(); i < 30; i++) {
                 correo+=" ";

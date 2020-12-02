@@ -24,11 +24,11 @@ public class MenuPrincipal extends javax.swing.JFrame {
     //vistas
     
     private InicioSession inicioSession;
-    private ListaDeDocente listaDeDocente;
+    //private ListaDeDocente listaDeDocente;
     private MenuDocente menuDocenteV;
     private RegistrarDocente registrarDocente;
     private RegistrarRector registrarRector;
-    private VisuaizarADocente visualizarDocente;
+    //private VisuaizarADocente visualizarDocente;
     
     public MenuPrincipal() {
         initComponents();
@@ -42,18 +42,18 @@ public class MenuPrincipal extends javax.swing.JFrame {
         controladorR=new ControladorRector(controladorD);
         
         inicioSession=new InicioSession(this, controladorD, controladorR);
-        listaDeDocente=new ListaDeDocente();
+        //listaDeDocente=new ListaDeDocente();
         menuDocenteV=new MenuDocente(controladorD);
         registrarDocente=new RegistrarDocente(controladorR);
         registrarRector=new RegistrarRector(controladorR);
-        visualizarDocente=new VisuaizarADocente(controladorA,controladorM, controladorD);
+        //visualizarDocente=new VisuaizarADocente(controladorA,controladorM, controladorD);
         
         desktopPane.add(inicioSession);
-        desktopPane.add(listaDeDocente);
+        //desktopPane.add(listaDeDocente);
         desktopPane.add(menuDocenteV);
         desktopPane.add(registrarDocente);
         desktopPane.add(registrarRector);
-        desktopPane.add(visualizarDocente);
+        //desktopPane.add(visualizarDocente);
     }
     
     public JMenu getMenuRector() {
@@ -88,10 +88,8 @@ public class MenuPrincipal extends javax.swing.JFrame {
         tabCerrarSession = new javax.swing.JMenuItem();
         menuRector = new javax.swing.JMenu();
         tabRegistrarDocente = new javax.swing.JMenuItem();
-        tabVerActividadD = new javax.swing.JMenuItem();
         menuDocente = new javax.swing.JMenu();
         tabMenuDocente = new javax.swing.JMenuItem();
-        tabListarDocente = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -150,15 +148,6 @@ public class MenuPrincipal extends javax.swing.JFrame {
         });
         menuRector.add(tabRegistrarDocente);
 
-        tabVerActividadD.setMnemonic('y');
-        tabVerActividadD.setText("V. DOCENTE");
-        tabVerActividadD.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                tabVerActividadDActionPerformed(evt);
-            }
-        });
-        menuRector.add(tabVerActividadD);
-
         menuBar.add(menuRector);
 
         menuDocente.setMnemonic('h');
@@ -172,15 +161,6 @@ public class MenuPrincipal extends javax.swing.JFrame {
             }
         });
         menuDocente.add(tabMenuDocente);
-
-        tabListarDocente.setMnemonic('a');
-        tabListarDocente.setText("LISTAR");
-        tabListarDocente.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                tabListarDocenteActionPerformed(evt);
-            }
-        });
-        menuDocente.add(tabListarDocente);
 
         menuBar.add(menuDocente);
 
@@ -209,20 +189,10 @@ public class MenuPrincipal extends javax.swing.JFrame {
 
     }//GEN-LAST:event_tabRegistrarRectorActionPerformed
 
-    private void tabVerActividadDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tabVerActividadDActionPerformed
-        visualizarDocente.setVisible(true);
-
-    }//GEN-LAST:event_tabVerActividadDActionPerformed
-
     private void tabMenuDocenteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tabMenuDocenteActionPerformed
             menuDocenteV.setVisible(true);
 
     }//GEN-LAST:event_tabMenuDocenteActionPerformed
-
-    private void tabListarDocenteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tabListarDocenteActionPerformed
-        listaDeDocente.setVisible(true);
-
-    }//GEN-LAST:event_tabListarDocenteActionPerformed
 
     private void tabInicioSessionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tabInicioSessionActionPerformed
         inicioSession.setVisible(true);
@@ -286,11 +256,9 @@ public class MenuPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenu menuRector;
     private javax.swing.JMenuItem tabCerrarSession;
     private javax.swing.JMenuItem tabInicioSession;
-    private javax.swing.JMenuItem tabListarDocente;
     private javax.swing.JMenuItem tabMenuDocente;
     private javax.swing.JMenuItem tabRegistrarDocente;
     private javax.swing.JMenuItem tabRegistrarRector;
-    private javax.swing.JMenuItem tabVerActividadD;
     // End of variables declaration//GEN-END:variables
 
 }
