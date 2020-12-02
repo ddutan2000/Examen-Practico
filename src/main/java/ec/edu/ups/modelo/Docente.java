@@ -31,6 +31,8 @@ public class Docente extends Persona {
     }
 
     public Docente() {
+        alumnos = new ArrayList<>();
+        materias=new ArrayList<>();
     }
 
     public String getCurso() {

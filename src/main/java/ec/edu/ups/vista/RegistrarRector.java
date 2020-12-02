@@ -164,6 +164,10 @@ public class RegistrarRector extends javax.swing.JInternalFrame {
         if(!txtCedula.getText().isEmpty()&&!txtNombre.getText().isEmpty()&&!txtApellido.getText().isEmpty()&&
                 cmbxTipo.getSelectedIndex()!=0&&!txtCorreo.getText().isEmpty()&&!txtContrasenia.getText().isEmpty()){
             String cedula=txtCedula.getText();
+            for (int i = cedula.length(); i < 10; i++) {
+                cedula+=" ";
+            }
+            cedula=cedula.substring(0, 10);
             
             String nombre=txtNombre.getText();
             for (int i = nombre.length(); i < 25; i++) {

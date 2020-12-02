@@ -119,10 +119,10 @@ public class InicioSession extends javax.swing.JInternalFrame {
     private void btnIniciarSessionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIniciarSessionActionPerformed
         if(!txtCorreo.getText().isEmpty()&&!txtContrasenia.getText().isEmpty()){
             String correo=txtCorreo.getText();
-            for (int i = correo.length(); i < 25; i++) {
+            for (int i = correo.length(); i < 30; i++) {
                 correo+=" ";
             }
-            correo=correo.substring(0, 25);
+            correo=correo.substring(0, 30);
             
             String contrasenia=txtContrasenia.getText();
             for (int i = contrasenia.length(); i < 10; i++) {
@@ -136,6 +136,8 @@ public class InicioSession extends javax.swing.JInternalFrame {
                 menup.getCerrarSession().setVisible(true);
                 menup.getRegistrarseTab().setVisible(false);
                 menup.getIniciarsessionTab().setVisible(false);
+                JOptionPane.showMessageDialog(null, "BIENVENIDO");
+                limpiar();
             }else{
                 docente=controladorD.login(correo, contrasenia);
                 if(docente!=null){
@@ -143,6 +145,8 @@ public class InicioSession extends javax.swing.JInternalFrame {
                 menup.getCerrarSession().setVisible(true);
                 menup.getRegistrarseTab().setVisible(false);
                 menup.getIniciarsessionTab().setVisible(false);
+                JOptionPane.showMessageDialog(null, "BIENVENIDO");
+                limpiar();
                 }else{
                     JOptionPane.showMessageDialog(null, "CORREO O CONTRASEÑA EQUIVOCADO");
                     limpiar();

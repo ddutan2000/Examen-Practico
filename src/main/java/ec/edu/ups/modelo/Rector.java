@@ -27,6 +27,7 @@ public class Rector extends Persona {
     
 
     public Rector() {
+       docentes=new ArrayList<>(); 
     }
 
 
@@ -78,7 +79,7 @@ public class Rector extends Persona {
         }
     }
     
-    public List<Docente> findall(){
+    public List<Docente> findAll(){
         return docentes;
     }
 

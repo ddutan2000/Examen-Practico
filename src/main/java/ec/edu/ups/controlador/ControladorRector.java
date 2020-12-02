@@ -37,7 +37,7 @@ public class ControladorRector {
     private String correo| 30 bytes +2 bytes
     private String contrasenia| 10 bytes + 2 bytes
     
-    total= 141;
+    total= 137;
      */
     public ControladorRector(ControladorDocente controladorD) {
         try {

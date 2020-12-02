@@ -34,7 +34,7 @@ public class VisuaizarADocente extends javax.swing.JInternalFrame {
         public void actualizarCmbx() {
         cmbxDocentes.removeAllItems();
 
-        cmbxDocentes.addItem("--SELECCIONE UN DOECNTE--");
+        cmbxDocentes.addItem("--SELECCIONE UN DOCENTE--");
         if (controladorD.findAllDocentes()== null) {
         } else {
             List<Docente> docentes = controladorD.findAllDocentes();

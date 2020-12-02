@@ -236,10 +236,9 @@ public class ControladorDocente {
                 if (!docente.getNombre().equals(eliminar25bytes)) {
                     docenteLista.add(docente);
                 }
-
+                
                 salto += tamañoDeArchivo;
             }
-
             return docenteLista;
         } catch (IOException ex) {
             System.out.println("Error lectrura escritura (List : BodegaDAO)");

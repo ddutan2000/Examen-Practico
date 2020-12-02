@@ -19,7 +19,7 @@ public class RegistrarDocente extends javax.swing.JInternalFrame {
 
     private ControladorRector controladorR;
     private Docente docente;
-    private Rector rector= new Rector();
+    private Rector rector=new Rector();
 
     public RegistrarDocente(ControladorRector controladorRector) {
         initComponents();
@@ -95,7 +95,6 @@ public class RegistrarDocente extends javax.swing.JInternalFrame {
 
         lblCedula.setText("CEDULA:");
 
-        cmbxTipo.setEditable(true);
         cmbxTipo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "--SELECIONE UNA OPCION--", "DOCENTE" }));
 
         lblCorreo.setText("CORREO:");
@@ -164,12 +163,8 @@ public class RegistrarDocente extends javax.swing.JInternalFrame {
                                                 .addComponent(lblApellido1))
                                             .addGap(18, 18, 18)
                                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                .addGroup(layout.createSequentialGroup()
-                                                    .addGap(0, 0, 0)
-                                                    .addComponent(cmbxTipo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                                .addGroup(layout.createSequentialGroup()
-                                                    .addComponent(txtCedula, javax.swing.GroupLayout.PREFERRED_SIZE, 201, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                    .addGap(21, 21, 21))))
+                                                .addComponent(cmbxTipo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addComponent(txtCedula, javax.swing.GroupLayout.PREFERRED_SIZE, 201, javax.swing.GroupLayout.PREFERRED_SIZE)))
                                         .addGroup(layout.createSequentialGroup()
                                             .addComponent(jLabel3)
                                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -287,12 +282,13 @@ public class RegistrarDocente extends javax.swing.JInternalFrame {
                 curso += " ";
             }
             curso = curso.substring(0, 50);
-            
             docente=new Docente(curso, correo, contrasenia, cedula, nombre, apellido, tipo);
             rector.createDocente(docente);
-            actualizarVista(rector.findall());   
+            actualizarVista(rector.findAll());   
             JOptionPane.showMessageDialog(null, "DOCENTE AGREGADO A LA LISTA");
             limpiar();
+        }else{
+                JOptionPane.showMessageDialog(null, "EXISTEN CAMPOS VACIOS");
         }
     }//GEN-LAST:event_btnAgregarAListaActionPerformed
 
@@ -302,7 +298,7 @@ public class RegistrarDocente extends javax.swing.JInternalFrame {
                                     JOptionPane.INFORMATION_MESSAGE,null, opcionesJPanel, null);
                             
                             if(JOptionPane.OK_OPTION==confirmar){
-                                controladorR.createDocente(rector.findall());
+                                controladorR.createDocente(rector.findAll());
                                 JOptionPane.showMessageDialog(null, "DOCENTES CREADOS CON EXITO");
                                 LimpiarVista();
                             }else{
